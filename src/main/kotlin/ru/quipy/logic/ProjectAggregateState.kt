@@ -14,7 +14,7 @@ class ProjectAggregateState : AggregateState<UUID, ProjectAggregate> {
     lateinit var projectTitle: String
     lateinit var creatorId: String
     var tasks = mutableMapOf<UUID, TaskEntity>()
-    var projectTags = mutableMapOf<UUID, TagEntity>()
+    var statuses = mutableMapOf<UUID, StatusEntity>()
 
     override fun getId() = projectId
 
@@ -28,8 +28,8 @@ class ProjectAggregateState : AggregateState<UUID, ProjectAggregate> {
     }
 
     @StateTransitionFunc
-    fun tagCreatedApply(event: TagCreatedEvent) {
-        projectTags[event.tagId] = TagEntity(event.tagId, event.tagName)
+    fun statusCreatedApply(event: StatusCreatedEvent) {
+        statuses[event.statusId] = StatusEntity(event.statusId, event.statusName, event.statusColor)
         updatedAt = createdAt
     }
 
@@ -46,17 +46,18 @@ data class TaskEntity(
     val tagsAssigned: MutableSet<UUID>
 )
 
-data class TagEntity(
+data class StatusEntity(
     val id: UUID = UUID.randomUUID(),
-    val name: String
+    val name: String,
+    val color: Int
 )
 
 /**
  * Demonstrates that the transition functions might be representer by "extension" functions, not only class members functions
  */
 @StateTransitionFunc
-fun ProjectAggregateState.tagAssignedApply(event: TagAssignedToTaskEvent) {
-    tasks[event.taskId]?.tagsAssigned?.add(event.tagId)
+fun ProjectAggregateState.tagAssignedApply(event: StatusAssignedToTaskEvent) {
+    tasks[event.taskId]?.tagsAssigned?.add(event.statusId)
         ?: throw IllegalArgumentException("No such task: ${event.taskId}")
     updatedAt = createdAt
 }
