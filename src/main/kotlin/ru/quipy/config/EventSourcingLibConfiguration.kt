@@ -9,6 +9,7 @@ import ru.quipy.aggregate.UserAggregate
 import ru.quipy.core.EventSourcingServiceFactory
 import ru.quipy.logic.ProjectAggregateState
 import ru.quipy.logic.UserAggregateState
+import ru.quipy.projections.UserEventsSubscriber
 import ru.quipy.streams.AggregateEventStreamManager
 import java.util.*
 import javax.annotation.PostConstruct

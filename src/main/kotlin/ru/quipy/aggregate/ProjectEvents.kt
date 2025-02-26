@@ -12,8 +12,7 @@ const val PROJECT_MEMBER_ADDED_EVENT = "PROJECT_MEMBER_ADDED_EVENT"
 class ProjectCreatedEvent(
     val projectId: UUID,
     val title: String,
-    val creatorId: UUID,
-    val defaultStatusId: UUID,
+    val assigneeId: UUID,
     createdAt: Long = System.currentTimeMillis()
 ) : Event<ProjectAggregate>(
     name = PROJECT_CREATED_EVENT,
@@ -33,7 +32,7 @@ class ProjectRenamedEvent(
 @DomainEvent(PROJECT_MEMBER_ADDED_EVENT)
 class ProjectAddedMemberEvent(
     val projectId: UUID,
-    val userId: UUID,
+    val assigneeId: UUID,
     createdAt: Long = System.currentTimeMillis()
 ) : Event<ProjectAggregate>(
     name = PROJECT_MEMBER_ADDED_EVENT,
