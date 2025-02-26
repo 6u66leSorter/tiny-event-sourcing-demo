@@ -29,7 +29,7 @@ class ProjectEventsSubscriber {
             }
 
             `when`(ProjectAddedMemberEvent::class) { event ->
-                logger.info("User with id={} added to project with id={}", event.userId, event.projectId)
+                logger.info("User with id={} added to project with id={}", event.assigneeId, event.projectId)
             }
 
             `when`(TaskAddedEvent::class) { event ->

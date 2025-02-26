@@ -8,8 +8,8 @@ data class TaskData (
     @Id
     val taskId: UUID,
     val projectId: UUID,
-    var name: String,
-    var status: UUID,
+    var title: String,
+    var taskStatusId: UUID,
     @ElementCollection(fetch = FetchType.EAGER)
     val assignees: MutableSet<UUID>
 ) {
